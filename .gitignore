@@ -1,0 +1,79 @@
+# Ignore the markdown file
+*.md
+
+# Ignore data directory -- except specified files / directories.
+# The trailing /* after data is significant. http://stackoverflow.com/a/5534865/100904
+data/*
+model/*
+checkpoint/*
+
+!data/.gitkeep
+!checkpoint/.gitkeep
+
+# -------------------------------------------------------------------------
+# Ignore all files that generally ought not to be committed into the repo.
+# Never commit sensitive data.
+# Never commit useless files.
+# Try not to commit large files.
+
+# Filenames should NOT have spaces
+* *
+
+# Ignore byte-compiled / optimised / DLL files
+*.py[cod]
+
+# Ignore SQLite3 files.
+*.db
+*.sqlite3
+*.sqlite3-journal
+
+# Data files. Try not to commit data into the repo
+*.csv
+*.tsv
+*.dat
+*.mdb
+*.tar
+
+# Zip files that aren't read by Pandas
+*.7z
+*.zip
+
+# Documents
+*.doc*
+*.pdf
+*.ppt*
+*.xls*
+
+# Avoid media files
+*.avi
+*.mp*
+*.wmv
+
+# Backup files
+~$*
+*~
+*.bak*
+
+# IPython Notebook checkpoints
+.ipynb_checkpoints
+
+# Typically bash.exe.stackdump on Cygwin
+*.stackdump
+
+# Windows shortcut files
+*.lnk
+
+# Windows / Mac OS junk files
+Desktop.ini
+$RECYCLE.BIN/
+*[Tt]humbs.db
+*.DS_Store
+
+# R history files
+.RHistory
+
+# Ignore the model file
+*.crdownload
+
+# Ignore vscode
+.vscode/
