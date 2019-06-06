@@ -2,8 +2,8 @@
 set -x #echo on
 
 # Download the model
-MODEL = checkpoint/cp_best.pt.tar
-if [ -f "$MODEL"]; then
+MODEL=./checkpoint/cp_best.pt.tar
+if [ -f "$MODEL" ]; then
     echo "$MODEL exist, skipping download."
 else
     wget https://srm-model-zoo.s3-us-west-1.amazonaws.com/cp_best.pt.tar -O checkpoint/cp_best.pt.tar
