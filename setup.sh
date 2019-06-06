@@ -2,7 +2,12 @@
 set -x #echo on
 
 # Download the model
-wget https://srm-model-zoo.s3-us-west-1.amazonaws.com/cp_best.pt.tar -O checkpoint/cp_best.pt.tar
+MODEL = checkpoint/cp_best.pt.tar
+if [ -f "$MODEL"]; then
+    echo "$MODEL exist, skipping download."
+else
+    wget https://srm-model-zoo.s3-us-west-1.amazonaws.com/cp_best.pt.tar -O checkpoint/cp_best.pt.tar
+fi
 
 # Download the installer, install and then remove the installer
 wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
@@ -14,7 +19,7 @@ ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
 echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 echo "conda activate base" >> ~/.bashrc
 
-PS1 = '$ '
+PS1='$ '
 source ~/.bashrc
 
 # Update conda
