@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x #echo on
 
 # Download the model
 MODEL=./checkpoint/cp_best.pt.tar
@@ -17,7 +16,6 @@ ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
 
 # Set conda path
 echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
-echo "conda activate base" >> ~/.bashrc
 
 PS1='$ '
 source ~/.bashrc
@@ -27,9 +25,8 @@ conda update -y conda
 
 # Create an environment
 conda env create -f environment.yml
-
-# Activate the environment
-# conda activate planet-amazon
+echo "conda activate planet-amazon" >> ~/.bashrc
+source ~/.bashrc
 
 # Run the model
 # python predict.py
