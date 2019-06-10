@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<img src="{{img_url}}" alt="Input Image">
+<p>The algorithm finds the following patterns in the image:</p>
+<ul>
+    {% for pattern in result %}
+    <li>{{ pattern }}</li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
