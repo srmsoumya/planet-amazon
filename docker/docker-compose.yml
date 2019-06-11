@@ -1,0 +1,16 @@
+version: '3'
+services: 
+    planet:
+        build: .
+        container_name: srm-planet
+        ports:
+            - 5000:5000
+        tty: true
+        volumes: 
+            - planet-code:/home/ubuntu
+            - planet-opt:/opt
+            - planet-profile:/etc/profile.d/
+volumes:
+    planet-code:
+    planet-opt:
+    planet-profile:
