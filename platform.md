@@ -1,6 +1,5 @@
-Prerequisite
-    - Docker
-    - Docker Compose
+Prerequisite:  
+    - Install Docker and Docker Compose
 
 Steps:
 
