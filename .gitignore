@@ -1,5 +1,6 @@
 # Ignore the markdown file
 *.md
+!platform.md
 
 # Ignore data directory -- except specified files / directories.
 # The trailing /* after data is significant. http://stackoverflow.com/a/5534865/100904
