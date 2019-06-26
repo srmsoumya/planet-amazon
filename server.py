@@ -27,7 +27,6 @@ model = load_model(args)
 
 # TODO: Check for pre-defined set of extensions
 def check_image_file(request):
-    import pdb; pdb.set_trace()
     if 'image' not in request.files:
         flash('No file was uploaded')
         return redirect(request.url)
@@ -56,7 +55,6 @@ def home():
 
     if request.method == 'POST':
         image_file = check_image_file(request)
-        import pdb; pdb.set_trace()
         if image_file:
             try:
                 filename = save_image(image_file)
@@ -93,4 +91,4 @@ def error(error):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='127.0.0.1', port=8001, debug=True)
