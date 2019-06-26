@@ -25,6 +25,29 @@ args = Arguments()
 # Load the model
 model = load_model(args)
 
+# TODO: Check for pre-defined set of extensions
+def check_image_file(request):
+    import pdb; pdb.set_trace()
+    if 'image' not in request.files:
+        flash('No file was uploaded')
+        return redirect(request.url)
+
+    image_file = request.files['image']
+
+    if image_file.filename == '':
+        flash('No file was uploaded')
+        return redirect(request.url)
+
+    return image_file
+
+
+def save_image(image_file):
+    '''Save the image inside config directory.'''
+    filename = image_file.filename
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    image_file.save(filepath)
+    return filename
+
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -32,41 +55,31 @@ def home():
         return render_template('home.html')
 
     if request.method == 'POST':
-        if 'image' not in request.files:
-            flash('No file was uploaded')
-            return redirect(request.url)
-
-        image_file = request.files['image']
-
-        if image_file.filename == '':
-            flash('No file was uploaded')
-            return redirect(request.url)
-
+        image_file = check_image_file(request)
+        import pdb; pdb.set_trace()
         if image_file:
-            passed = False
             try:
-                filename = image_file.filename
-                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                image_file.save(filepath)
+                filename = save_image(image_file)
                 passed = True
             except Exception:
                 passed = False
 
             if passed:
-                return redirect(url_for('predict', filename=filename))
+                img_url = url_for('images', filename=filename)
+                args.img_path = os.path.join(
+                    app.config['UPLOAD_FOLDER'], filename)
+                result = evaluate(model, args)
+
+                _format = request.args.get('format')
+                if _format == 'json':
+                    return jsonify(str(result))
+                else:
+                    return render_template('predict.html',
+                                           result=result,
+                                           img_url=img_url)
+
             else:
                 return redirect(url_for('error'))
-
-
-@app.route('/predict/<filename>', methods=['GET'])
-def predict(filename):
-    img_url = url_for('images', filename=filename)
-    args.img_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    result = evaluate(model, args)
-
-    return render_template('predict.html',
-                           result=result[0],
-                           img_url=img_url)
 
 
 @app.route('/images/<filename>', methods=['GET'])
@@ -74,8 +87,8 @@ def images(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
-@app.errorhandler(500)
-def server_error(error):
+@app.errorhandler(Exception)
+def error(error):
     return render_template('error.html'), 500
 
 

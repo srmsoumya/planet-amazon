@@ -4,8 +4,8 @@
 <img src="{{img_url}}" alt="Input Image">
 <p>The algorithm finds the following patterns in the image:</p>
 <ul>
-    {% for pattern in result %}
-    <li>{{ pattern }}</li>
+    {% for (label, accuracy) in result %}
+    <li>{{ label }}: {{ accuracy }}</li>
     {% endfor %}
 </ul>
 

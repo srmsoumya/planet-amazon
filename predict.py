@@ -12,7 +12,8 @@ from dataset import mlb
 
 
 def get_args():
-    parser = ArgumentParser(description='Planet Amazon from Space Challenge: Predict')
+    parser = ArgumentParser(
+        description='Planet Amazon from Space Challenge: Predict')
 
     parser.add_argument('--cpu', action='store_true', default=True)
     parser.add_argument('--cp_file', type=str, default='cp_best.pt.tar')
@@ -25,8 +26,8 @@ def get_args():
 
 def load_model(args):
     cwd = Path.cwd()
-    path = Path(cwd/'checkpoint'/args.cp_file)
-    
+    path = Path(cwd / 'checkpoint' / args.cp_file)
+
     model = get_model_test(args)
     load_checkpoint_test(model, path, args)
     model.eval()
@@ -36,8 +37,9 @@ def load_model(args):
 
 def load_data(input, url=False):
     SZ = 256
-    MEAN, STD = np.array([0.485, 0.456, 0.406]), np.array([0.229, 0.224, 0.225])
-    
+    MEAN, STD = np.array([0.485, 0.456, 0.406]), np.array(
+        [0.229, 0.224, 0.225])
+
     transform = {
         'test': Compose([
             Resize(height=SZ, width=SZ),
@@ -47,27 +49,28 @@ def load_data(input, url=False):
     }
 
     if url:
-        img = np.frombuffer(input, np.uint8) # read from bytes
+        img = np.frombuffer(input, np.uint8)  # read from bytes
         img = cv2.imdecode(img, cv2.IMREAD_COLOR)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     else:
-        img = cv2.imread(str(input)) # reads JPG image
-    
-    img = transform['test'](image=img)['image'] # converts to pytorch tensor
+        img = cv2.imread(str(input))  # reads JPG image
+
+    img = transform['test'](image=img)['image']  # converts to pytorch tensor
 
     return img.unsqueeze_(dim=0)
 
 
 def predict(model, args):
     data = load_data(args.img_path)
-    
-    with torch.no_grad():
-        output = model(data.to(args.device))
-        output = output.detach().cpu().numpy() > 0.2
-        output = mlb.inverse_transform(output)
 
-        return output
-        
+    with torch.no_grad():
+        out = model(data.to(args.device)).detach().cpu().numpy()
+        prediction = out > 0.2
+        out = out[prediction]
+        label = list(map(lambda x: x.replace('_', ' '),
+                         mlb.inverse_transform(prediction)[0]))
+        return list(zip(label, out))
+
 
 def main():
     args = get_args()
