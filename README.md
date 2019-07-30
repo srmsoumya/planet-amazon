@@ -235,7 +235,7 @@ python server.py
 
 8.6. Browse to localhost:5000 in your local browser, to upload and test the application
 
-## Cookie Cutter Usage (For Dev)
+## Cookie Cutter Usage
 
 ```
 cookiecutter CookieCutter_ProDL/
