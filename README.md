@@ -238,9 +238,12 @@ python server.py
 ## Cookie Cutter Usage
 
 ```
+*Installation*
+pip install cookiecutter
+
 cookiecutter CookieCutter_ProDL/
 
-# same can work for cloning templates on github
+*same can work for cloning templates on github*
 
 cookiecutter https://github.com/user/CookieCutter_ProDL
 ```
