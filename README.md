@@ -239,4 +239,8 @@ python server.py
 
 ```
 cookiecutter CookieCutter_ProDL/
+
+# same can work for cloning templates on github
+
+cookiecutter https://github.com/user/CookieCutter_ProDL
 ```
