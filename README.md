@@ -8,6 +8,7 @@
 6. [Create `setup.sh` script, to create the required environment to host your model](#Create-setup.sh-script,-to-create-the-required-environment-to-host-your-model)
 7. [Push your code into github or bitbucket](#Push-your-code-into-github-or-bitbucket)
 8. [Host your application in the cloud](#Host-your-application-in-the-cloud)
+9. [Cookie Cutter Usage](#Cookie-Cutter-Usage)
 
 ---------------------------------------------------------------------------------------------------
 
@@ -233,3 +234,16 @@ python server.py
 ```
 
 8.6. Browse to localhost:5000 in your local browser, to upload and test the application
+
+## Cookie Cutter Usage
+
+```
+# Installation
+pip install cookiecutter
+
+cookiecutter CookieCutter_ProDL/
+
+# Same can work for cloning templates on github*
+
+cookiecutter https://github.com/user/CookieCutter_ProDL
+```

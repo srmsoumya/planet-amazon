@@ -1,0 +1,10 @@
+{
+    "project_name" : "MainProj",
+    "checkpoint_folder_name"  :  "checkpoint" ,
+    "static_folder_name": "static",
+    "data_folder_name" : "data" ,
+    "templates_folder_name":"templates" ,
+    "docker_folder_name" :  "docker",
+    "nbs_folder_name" :  "nbs"    ,
+    "python_scripts_folder_name" : "python-scripts"
+}
